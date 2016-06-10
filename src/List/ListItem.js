@@ -287,6 +287,10 @@ class ListItem extends Component {
      * Override the inline-styles of the root element.
      */
     style: PropTypes.object,
+    /**
+     * Open state prop for nested list.
+     */
+    open: PropTypes.bool
   };
 
   static defaultProps = {
@@ -318,6 +322,14 @@ class ListItem extends Component {
     rightIconButtonKeyboardFocused: false,
     touch: false,
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.open && this.props.open && this.state.open) {
+      this.setState({
+        open: !this.state.open
+      })
+    }
+  }
 
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     return (
